@@ -51,3 +51,32 @@ export const TRIP_SORT_FIELDS = [
     "status",
     "createdAt",
 ];
+
+export const MAINTAINCE_TYPES = [
+    "preventive",
+    "corrective",
+    "Emergency"
+];
+
+export const MAINTAINCE_STATUS = [
+    "scheduled",
+    "in-Progress",
+    "completed",
+    "cancelled"
+];
+
+export const MAINTENANCE_SORT_FIELDS = [
+
+    "maintenanceNumber",
+
+    "scheduledDate",
+
+    "completionDate",
+
+    "cost",
+
+    "status",
+
+    "createdAt"
+
+];

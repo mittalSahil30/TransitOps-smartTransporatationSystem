@@ -1,0 +1,174 @@
+import { DataTypes } from "sequelize";
+import sequelize from "../config/database.js";
+
+import { MAINTAINCE_STATUS, MAINTAINCE_TYPES } from "../utils/constants.js";
+
+const Maintenance = sequelize.define(
+   "Maintaince", {
+      id : {
+         type: DataTypes.INTEGER,
+         autoIncrement: true,
+         primaryKey: true,
+      }, 
+      maintenanceNumber: {
+         type: DataTypes.STRING(30),
+         allowNull: false,
+         unique: true,
+         field: "maintenance_number",
+      }, 
+      vehicleId: {
+         type: DataTypes.INTEGER,
+         allowNull: false,
+         field: "vehicle_id",
+      },
+      maintenanceType: {
+         type: DataTypes.ENUM(
+            MAINTENANCE_TYPES.PREVENTIVE,
+            MAINTENANCE_TYPES.CORRECTIVE,
+            MAINTENANCE_TYPES.EMERGENCY
+         ),
+         allowNull: false,
+
+         field: "maintenance_type",
+      },
+      serviceCenter: {
+         type: DataTypes.STRING(150),
+         allowNull: false,
+
+         field: "service_center",
+      }, 
+      description: {
+         type: DataTypes.TEXT,
+         allowNull: false,
+      },
+      scheduleDate: {
+         type: DataTypes.DATE,
+         allowNull: false,
+
+         field: "scheduled_date",
+      },
+      completionDate: {
+         type: DataTypes.DATE,
+
+         allowNull: true,
+
+         field: "completion_date",
+      },
+      odometerReading: {
+
+         type: DataTypes.DECIMAL(12, 2),
+
+         allowNull: false,
+
+         field: "odometer_reading",
+
+      },
+      cost: {
+
+         type: DataTypes.DECIMAL(12, 2),
+
+         allowNull: false,
+
+         defaultValue: 0,
+
+      },
+      remarks: {
+
+         type: DataTypes.TEXT,
+
+         allowNull: true,
+
+      },
+
+      status: {
+
+         type: DataTypes.ENUM(
+
+            MAINTENANCE_STATUS.SCHEDULED,
+
+            MAINTENANCE_STATUS.IN_PROGRESS,
+
+            MAINTENANCE_STATUS.COMPLETED,
+
+            MAINTENANCE_STATUS.CANCELLED
+
+         ),
+
+         defaultValue:
+
+            MAINTENANCE_STATUS.SCHEDULED,
+
+      },
+
+      isDeleted: {
+
+         type: DataTypes.BOOLEAN,
+
+         defaultValue: false,
+
+         field: "is_deleted",
+
+      },
+   },
+   {
+
+      tableName: "maintenance",
+      freezeTableName: true,
+      timestamps: true,
+      indexes: [
+         {
+            unique: true,
+            fields: [
+               "maintenance_number"
+            ]
+         },
+         {
+            fields: [
+               "vehicle_id"
+            ]
+         },
+         {
+            fields: [
+               "scheduled_date"
+            ]
+         },
+         {
+            fields: [
+               "status"
+            ]
+         }
+      ]
+   }
+);
+
+/*
+|--------------------------------------------------------------------------
+| Instance Methods
+|--------------------------------------------------------------------------
+*/
+
+Maintenance.prototype.isScheduled = function () {
+
+   return this.status === MAINTENANCE_STATUS.SCHEDULED;
+
+};
+
+Maintenance.prototype.isInProgress = function () {
+
+   return this.status === MAINTENANCE_STATUS.IN_PROGRESS;
+
+};
+
+Maintenance.prototype.isCompleted = function () {
+
+   return this.status === MAINTENANCE_STATUS.COMPLETED;
+
+};
+
+Maintenance.prototype.isCancelled = function () {
+
+   return this.status === MAINTENANCE_STATUS.CANCELLED;
+
+};
+
+export default Maintenance;
