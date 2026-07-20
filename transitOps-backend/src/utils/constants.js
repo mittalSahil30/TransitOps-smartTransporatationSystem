@@ -80,3 +80,41 @@ export const MAINTENANCE_SORT_FIELDS = [
     "createdAt"
 
 ];
+
+/* ===========================================
+   FUEL TYPES
+=========================================== */
+
+export const FUEL_TYPES = {
+    DIESEL: "Diesel",
+    PETROL: "Petrol",
+    CNG: "CNG",
+    LNG: "LNG",
+    ELECTRIC: "Electric"
+};
+
+export const FUEL_TYPE_VALUES = Object.values(FUEL_TYPES);
+
+/* ===========================================
+   PAYMENT METHODS
+=========================================== */
+
+export const PAYMENT_METHODS = {
+    CASH: "Cash",
+    CARD: "Card",
+    UPI: "UPI",
+    COMPANY_ACCOUNT: "Company Account"
+};
+
+export const PAYMENT_METHOD_VALUES = Object.values(PAYMENT_METHODS);
+
+/* ===========================================
+   FUEL SORT FIELDS
+=========================================== */
+
+export const FUEL_SORT_FIELDS = [
+    "filledAt",
+    "quantity",
+    "totalCost",
+    "createdAt"
+];

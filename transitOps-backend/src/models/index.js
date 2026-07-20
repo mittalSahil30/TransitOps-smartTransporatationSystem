@@ -6,6 +6,7 @@ import Vehicle from "./Vehicle.js";
 import Driver from "./Driver.js";
 import Trip from "./Trip.js";
 import Maintenance from "./Maintaince.js";
+import Fuel from "./fuel.model.js";
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,16 @@ Maintenance.belongsTo(
     }
 );
 
+Vehicle.hasMany(Fuel, {
+    foreignKey: "vehicleId",
+    as: "fuelLogs"
+});
+
+Fuel.belongsTo(Vehicle, {
+    foreignKey: "vehicleId",
+    as: "vehicle"
+});
+
 /*
 |--------------------------------------------------------------------------
 | Export Models
@@ -86,6 +97,7 @@ const db = {
     Driver,
     Trip,
     Maintenance,
+    Fuel,
 };
 
 export default db;

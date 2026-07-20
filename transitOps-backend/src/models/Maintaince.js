@@ -67,7 +67,7 @@ const Maintenance = sequelize.define(
 
          type: DataTypes.DECIMAL(12, 2),
 
-         allowNull: false,
+         allowNull: true,
 
          defaultValue: 0,
 
