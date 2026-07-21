@@ -82,6 +82,16 @@ Fuel.belongsTo(Vehicle, {
     as: "vehicle"
 });
 
+Trip.hasMany(Fuel, {
+    foreignKey: "tripId",
+    as: "fuelLogs"
+});
+
+Fuel.belongsTo(Trip, {
+    foreignKey: "tripId",
+    as: "trip"
+});
+
 /*
 |--------------------------------------------------------------------------
 | Export Models
