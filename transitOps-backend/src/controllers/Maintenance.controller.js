@@ -7,10 +7,12 @@ class MaintenanceController {
    createMaintenance = asyncHandler(async (req, res) => {
       const maintenance = await maintenanceService.createMaintenance(req.body);
 
-      return ApiResponse.created(
-         res,
-         maintenance,
-         "Maintenance created successfully."
+      return res.status(201).json(
+         new ApiResponse(
+            201,
+            "Maintenance created successfully.",
+            maintenance
+         )
       );
    });
 
@@ -19,10 +21,12 @@ class MaintenanceController {
          req.params.id
       );
 
-      return ApiResponse.success(
-         res,
-         maintenance,
-         "Maintenance started successfully."
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Maintenance started successfully.",
+            maintenance
+         )
       );
    });
 
@@ -32,10 +36,12 @@ class MaintenanceController {
          req.body
       );
 
-      return ApiResponse.success(
-         res,
-         maintenance,
-         "Maintenance completed successfully."
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Maintenance completed successfully.",
+            maintenance
+         )
       );
    });
 
@@ -45,10 +51,12 @@ class MaintenanceController {
          req.body.remarks
       );
 
-      return ApiResponse.success(
-         res,
-         maintenance,
-         "Maintenance cancelled successfully."
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Maintenance cancelled successfully.",
+            maintenance
+         )
       );
    });
 
@@ -57,10 +65,12 @@ class MaintenanceController {
          req.params.id
       );
 
-      return ApiResponse.success(
-         res,
-         maintenance,
-         "Maintenance retrieved successfully."
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Maintenance retrieved successfully.",
+            maintenance
+         )
       );
    });
 
@@ -69,10 +79,12 @@ class MaintenanceController {
          req.query
       );
 
-      return ApiResponse.success(
-         res,
-         maintenance,
-         "Maintenance records retrieved successfully."
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Maintenance records retrieved successfully.",
+            maintenance
+         )
       );
    });
 
@@ -81,10 +93,12 @@ class MaintenanceController {
          req.params.id
       );
 
-      return ApiResponse.success(
-         res,
-         result,
-         result.message
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            result.message,
+            result
+         )
       );
    });
 
