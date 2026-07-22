@@ -1,5 +1,5 @@
 import fuelService from "../services/fuel.service.js";
-import asyncHandler from "../utils/asyncHandler.js";
+import asyncHandler from "../middleware/asyncHandler.js";
 import ApiResponse from "../utils/apiResponse.js";
 
 class FuelController {

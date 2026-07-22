@@ -4,7 +4,7 @@ import {
    MAINTENANCE_TYPES,
    MAINTENANCE_SORT_FIELDS
 } from "../utils/constants.js";
-import validator from "../middleware/validators.js";
+import validator from "../middleware/validator.js";
 
 export const maintenanceIdValidator = [
    param("id")

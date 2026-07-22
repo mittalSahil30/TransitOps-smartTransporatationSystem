@@ -1,7 +1,7 @@
 import express from "express";
 import maintenanceController from "../controllers/maintenance.controller.js";
 import authenticate from "../middleware/auth.js";
-import authorize from "../middleware/authorize.js";
+import authorize from "../middleware/role.js";
 import {
    createMaintenanceValidator,
    completeMaintenanceValidator,

@@ -1,7 +1,7 @@
 import express from "express";
 import fuelController from "../controllers/fuel.controller.js";
 import authenticate from "../middleware/auth.js";
-import authorize from "../middleware/authorize.js";
+import authorize from "../middleware/role.js";
 import {
    createFuelValidator,
    fuelIdValidator,

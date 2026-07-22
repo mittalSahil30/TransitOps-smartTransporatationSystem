@@ -52,13 +52,13 @@ export const TRIP_SORT_FIELDS = [
     "createdAt",
 ];
 
-export const MAINTAINCE_TYPES = [
+export const MAINTENANCE_TYPES = [
     "preventive",
     "corrective",
     "Emergency"
 ];
 
-export const MAINTAINCE_STATUS = [
+export const MAINTENANCE_STATUS = [
     "scheduled",
     "in-Progress",
     "completed",
