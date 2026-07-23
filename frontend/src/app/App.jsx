@@ -25,6 +25,14 @@ import TripsListPage from "@/features/trips/TripsListPage";
 import TripFormPage from "@/features/trips/TripFormPage";
 import TripDetailsPage from "@/features/trips/TripDetailsPage";
 
+import MaintenanceListPage from "@/features/maintenance/MaintenanceListPage";
+import MaintenanceFormPage from "@/features/maintenance/MaintenanceFormPage";
+import MaintenanceDetailsPage from "@/features/maintenance/MaintenanceDetailsPage";
+
+import FuelListPage from "@/features/fuel/FuelListPage";
+import FuelFormPage from "@/features/fuel/FuelFormPage";
+import FuelDetailsPage from "@/features/fuel/FuelDetailsPage";
+
 function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
@@ -96,6 +104,18 @@ export default function App() {
               <Route path="/trips/:id" element={
                 <RoleGate allow={["Admin", "Fleet Manager", "Dispatcher"]}><TripDetailsPage /></RoleGate>
               } />
+
+              <Route path="/maintenance" element={<MaintenanceListPage />} />
+              <Route path="/maintenance/new" element={
+                <RoleGate allow={["Admin", "Fleet Manager"]}><MaintenanceFormPage /></RoleGate>
+              } />
+              <Route path="/maintenance/:id" element={<MaintenanceDetailsPage />} />
+
+              <Route path="/fuel" element={<FuelListPage />} />
+              <Route path="/fuel/new" element={
+                <RoleGate allow={["Admin", "Fleet Manager"]}><FuelFormPage /></RoleGate>
+              } />
+              <Route path="/fuel/:id" element={<FuelDetailsPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

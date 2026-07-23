@@ -3,9 +3,10 @@ import { useAuth } from "@/features/auth/AuthContext";
 import { canOperateTrips, canRegisterUsers } from "@/lib/roles";
 
 const linkClass = ({ isActive }) =>
-  `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${isActive
-    ? "bg-slate-900 text-white"
-    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+  `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${
+    isActive
+      ? "bg-slate-900 text-white"
+      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
   }`;
 
 export function AppLayout() {
@@ -34,6 +35,8 @@ export function AppLayout() {
           {canOperateTrips(user?.role) && (
             <NavLink to="/trips" className={linkClass}>Trips</NavLink>
           )}
+          <NavLink to="/maintenance" className={linkClass}>Maintenance</NavLink>
+          <NavLink to="/fuel" className={linkClass}>Fuel</NavLink>
           <div className="pt-4">
             <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">Account</div>
             <NavLink to="/profile" className={linkClass}>Profile</NavLink>
