@@ -4,6 +4,8 @@ import authRoutes from "./auth.routes.js";
 import vehicleRoutes from "./vehicle.routes.js";
 import driverRoutes from "./driver.routes.js";
 import maintenanceRoutes from "./maintenance.routes.js"
+import fuelRoutes from "./fuel.routes.js";
+import dashboardRoutes from "./dashboard.routes.js";
 
 const router = express.Router();
 
@@ -50,6 +52,9 @@ router.use(
     tripRoutes
 );
 
-router.use("./maintenance", maintenanceRoutes);
+router.use("/maintenance", maintenanceRoutes);
 
+router.use("/fuel", fuelRoutes);
+
+router.use("/dashboard", dashboardRoutes);
 export default router;

@@ -1,5 +1,5 @@
 import { body, param, query } from "express-validator";
-import validator from "../middleware/validators.js";
+import validator from "../middleware/validator.js";
 import {
    FUEL_TYPE_VALUES,
    PAYMENT_METHOD_VALUES,

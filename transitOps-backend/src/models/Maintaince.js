@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-import { MAINTENANCE_STATUS, MAINTENANCE_TYPES } from "../utils/constants.js";
+import { MAINTENANCE_STATUS, MAINTENANCE_STATUS_VALUES, MAINTENANCE_TYPES, MAINTENANCE_TYPE_VALUES } from "../utils/constants.js";
 
 const Maintenance = sequelize.define(
    "Maintaince", {
@@ -23,7 +23,7 @@ const Maintenance = sequelize.define(
       },
       maintenanceType: {
          type: DataTypes.ENUM(
-            ...MAINTENANCE_TYPES
+            ...MAINTENANCE_TYPE_VALUES
          ),
          allowNull: false,
 
@@ -81,7 +81,7 @@ const Maintenance = sequelize.define(
       status: {
 
          type: DataTypes.ENUM(
-            ...MAINTENANCE_STATUS
+            ...MAINTENANCE_STATUS_VALUES
          ),
 
          defaultValue:

@@ -1,5 +1,5 @@
 import maintenanceService from "../services/maintenance.service.js";
-import asyncHandler from "../utils/asyncHandler.js";
+import asyncHandler from "../middleware/asyncHandler.js";
 import ApiResponse from "../utils/ApiResponse.js";
 
 class MaintenanceController {

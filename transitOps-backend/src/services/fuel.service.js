@@ -1,8 +1,8 @@
 import { Op } from "sequelize";
 import sequelize from "../config/database.js";
-import Fuel from "../models/fuel.model.js";
-import Vehicle from "../models/vehicle.model.js";
-import Trip from "../models/trip.model.js";
+import Fuel from "../models/Fuel.js";
+import Vehicle from "../models/Vehicle.js";
+import Trip from "../models/Trip.js";
 
 import { FUEL_SORT_FIELDS } from "../utils/constants.js";
 
@@ -169,7 +169,7 @@ class FuelService {
                attributes: [
                   "id",
                   "registrationNumber",
-                  "vehicleNumber"
+                  "vehicleName"
                ]
             },
             {
