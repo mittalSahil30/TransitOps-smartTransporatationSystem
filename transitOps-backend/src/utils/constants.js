@@ -175,3 +175,17 @@ export const FUEL_SORT_FIELDS = [
     "totalCost",
     "createdAt"
 ];
+
+export const EXPENSE_TYPES = {
+    TOLL: "Toll",
+    PARKING : "Parking",
+    DRIVER_ALLOWANCE: "Driver Allowance",
+    LOADING: "Loading",
+    UNLOADING: "Unloading",
+    Repair: "Repair",
+    INSURANCE: "Insurance",
+    PERMIT: "Permit",
+    OTHER: "Other"
+}
+
+export const EXPENSE_TYPE_VALUES = Object.values(EXPENSE_TYPES);
