@@ -320,9 +320,7 @@ class VehicleService {
       }
 
       if (type) {
-
          where.vehicleType = type;
-
       }
 
       if (region) {
@@ -337,9 +335,7 @@ class VehicleService {
       |--------------------------------------------------------------------------
       */
 
-      const offset =
-
-         (page - 1) * limit;
+      const offset = (page - 1) * limit;
 
       const result =
 
