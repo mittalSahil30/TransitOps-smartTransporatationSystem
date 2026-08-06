@@ -97,6 +97,5 @@ const Expense = sequelize.define(
 
 )
 
-
 export default Expense;
 

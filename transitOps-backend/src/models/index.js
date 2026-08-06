@@ -7,6 +7,7 @@ import Driver from "./Driver.js";
 import Trip from "./Trip.js";
 import Maintenance from "./Maintaince.js";
 import Fuel from "./Fuel.js";
+import Expense from "./Expense.js";
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,29 @@ Fuel.belongsTo(Trip, {
     as: "trip"
 });
 
+
+Vehicle.hasMany(Expense, {
+    foreignKey: "vehicleId",
+    as: "expenses"
+});
+
+Expense.belongsTo(Vehicle, {
+    foreignKey: "vehicleId",
+    as: "vehicle"
+});
+
+Trip.hasMany(Expense, {
+    foreignKey: "tripId",
+    as: "expenses"
+});
+
+Expense.belongsTo(Trip, {
+    foreignKey: "tripId",
+    as: "trip"
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Export Models
@@ -108,7 +132,11 @@ const db = {
     Trip,
     Maintenance,
     Fuel,
+    Expense,
 };
+
+
+
 
 export default db;
 
