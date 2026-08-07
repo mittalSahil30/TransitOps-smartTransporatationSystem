@@ -188,4 +188,12 @@ export const EXPENSE_TYPES = {
     OTHER: "Other"
 }
 
+export const EXPENSE_SORT_FIELDS = [
+    "expenseNumber",
+    "expenseDate",
+    "expenseType",
+    "amount",
+    "createdAt"
+];
+
 export const EXPENSE_TYPE_VALUES = Object.values(EXPENSE_TYPES);
