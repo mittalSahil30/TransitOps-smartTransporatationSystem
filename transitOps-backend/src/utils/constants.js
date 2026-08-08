@@ -196,4 +196,4 @@ export const EXPENSE_SORT_FIELDS = [
     "createdAt"
 ];
 
-export const EXPENSE_TYPE_VALUES = Object.values(EXPENSE_TYPES);
+export const EXPENSE_TYPES_VALUES = Object.values(EXPENSE_TYPES);

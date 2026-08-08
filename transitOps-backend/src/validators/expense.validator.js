@@ -2,7 +2,7 @@ import { body } from 'express-validator';
 import validator from '../middleware/validator.js';
 
 import {
-   EXPENSE_TYPE_VALUES,
+   EXPENSE_TYPES_VALUES,
    PAYMENT_METHOD_VALUES
 } from "../utils/constants.js";
 
@@ -31,7 +31,7 @@ export const createExpenseValidator = [
       .notEmpty()
       .withMessage("Expense type is required.")
       .isIn(
-         EXPENSE_TYPE_VALUES
+         EXPENSE_TYPES_VALUES
       )
       .withMessage("Invalid expense type."),
 
@@ -110,7 +110,7 @@ export const updateExpenseValidator = [
 
       .isIn(
 
-         EXPENSE_TYPE_VALUES
+         EXPENSE_TYPES_VALUES
 
       )
 

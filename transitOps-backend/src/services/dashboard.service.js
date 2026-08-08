@@ -728,9 +728,6 @@ class DashboardService {
       } = query;
 
       const where = {
-
-         deletedAt: null
-
       };
 
       if (startDate || endDate) {
@@ -761,7 +758,7 @@ class DashboardService {
                [
                   fn(
                      "YEAR",
-                     col("expenseDate")
+                     col("expense_date")
                   ),
                   "year"
                ],
@@ -769,7 +766,7 @@ class DashboardService {
                [
                   fn(
                      "MONTH",
-                     col("expenseDate")
+                     col("expense_date")
                   ),
                   "month"
                ],

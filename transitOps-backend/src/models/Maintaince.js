@@ -107,12 +107,6 @@ const Maintenance = sequelize.define(
       timestamps: true,
       indexes: [
          {
-            unique: true,
-            fields: [
-               "maintenance_number"
-            ]
-         },
-         {
             fields: [
                "vehicle_id"
             ]

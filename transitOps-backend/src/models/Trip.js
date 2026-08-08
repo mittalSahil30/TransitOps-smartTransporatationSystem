@@ -117,10 +117,6 @@ const Trip = sequelize.define(
 
         indexes: [
             {
-                unique: true,
-                fields: ["trip_number"],
-            },
-            {
                 fields: ["vehicle_id"],
             },
             {

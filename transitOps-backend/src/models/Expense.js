@@ -68,6 +68,7 @@ const Expense = sequelize.define(
       tableName: "expenses",
       freezeTableName: true,
       timestamps: true,
+      paranoid: true,
       indexes: [
          {
             unique: true,

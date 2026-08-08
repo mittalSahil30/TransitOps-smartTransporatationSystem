@@ -1,6 +1,7 @@
 import express from "express";
-import authenticate from "../middlewares/auth.js";
-import authorize from "../middlewares/role.js";
+import expenseController from "../controllers/expense.controller.js";
+import authenticate from "../middleware/auth.js";
+import authorize from "../middleware/role.js";
 import {
    createExpenseValidator,
    updateExpenseValidator,

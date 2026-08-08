@@ -33,6 +33,10 @@ import FuelListPage from "@/features/fuel/FuelListPage";
 import FuelFormPage from "@/features/fuel/FuelFormPage";
 import FuelDetailsPage from "@/features/fuel/FuelDetailsPage";
 
+import ExpensesListPage from "@/features/expenses/ExpensesListPage";
+import ExpenseFormPage from "@/features/expenses/ExpenseFormPage";
+import ExpenseDetailsPage from "@/features/expenses/ExpenseDetailsPage";
+
 function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
@@ -116,6 +120,15 @@ export default function App() {
                 <RoleGate allow={["Admin", "Fleet Manager"]}><FuelFormPage /></RoleGate>
               } />
               <Route path="/fuel/:id" element={<FuelDetailsPage />} />
+
+              <Route path="/expenses" element={<ExpensesListPage />} />
+              <Route path="/expenses/new" element={
+                <RoleGate allow={["Admin", "Fleet Manager"]}><ExpenseFormPage mode="create" /></RoleGate>
+              } />
+              <Route path="/expenses/:id" element={<ExpenseDetailsPage />} />
+              <Route path="/expenses/:id/edit" element={
+                <RoleGate allow={["Admin", "Fleet Manager"]}><ExpenseFormPage mode="edit" /></RoleGate>
+              } />
             </Route>
 
             <Route path="*" element={<NotFound />} />

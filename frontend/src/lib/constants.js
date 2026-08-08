@@ -15,6 +15,11 @@ export const MAINTENANCE_STATUS_OPTIONS = ["scheduled", "in-progress", "complete
 export const FUEL_TYPE_OPTIONS = ["Diesel", "Petrol", "CNG", "Electric"];
 export const PAYMENT_METHOD_OPTIONS = ["Cash", "Card", "UPI", "Company Account"];
 
+export const EXPENSE_TYPE_SUGGESTIONS = [
+  "Toll", "Parking", "Driver Allowance", "Repair", "Permit", "Fine", "Miscellaneous",
+];
+
+
 export const STATUS_BADGE = {
   Available: "bg-emerald-100 text-emerald-700 ring-emerald-200",
   "On Trip": "bg-blue-100 text-blue-700 ring-blue-200",

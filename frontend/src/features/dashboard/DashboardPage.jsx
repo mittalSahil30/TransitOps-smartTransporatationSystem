@@ -42,10 +42,25 @@ export default function DashboardPage() {
   const overviewQ = useQuery({ queryKey: ["dashboard", "overview"], queryFn: dashboardApi.overview });
   const analyticsQ = useQuery({ queryKey: ["dashboard", "analytics"], queryFn: dashboardApi.analytics });
   const recentQ = useQuery({ queryKey: ["dashboard", "recent"], queryFn: dashboardApi.recent });
+  const expenseSummaryQ = useQuery({ queryKey: ["dashboard", "expense-summary"], queryFn: dashboardApi.expenseSummary });
+  const expenseMonthlyQ = useQuery({ queryKey: ["dashboard", "expense-monthly"], queryFn: dashboardApi.expenseMonthly });
+  const expenseCategoriesQ = useQuery({ queryKey: ["dashboard", "expense-categories"], queryFn: dashboardApi.expenseCategories });
 
   const overview = overviewQ.data ?? {};
   const analytics = analyticsQ.data ?? {};
   const recent = recentQ.data ?? {};
+  const expenseSummary = expenseSummaryQ.data ?? {};
+
+  const monthlyExpenses = (expenseMonthlyQ.data ?? []).map((m) => ({
+    label: `${MONTHS[(m.month ?? 1) - 1]} '${String(m.year).slice(2)}`,
+    amount: m.amount ?? m.totalAmount ?? 0,
+  }));
+
+  const expenseCategories = (expenseCategoriesQ.data ?? []).map((c) => ({
+    name: c.expenseType ?? c.type ?? "Other",
+    value: c.totalAmount ?? c.amount ?? 0,
+    count: c.count ?? c.numberOfExpenses ?? 0,
+  }));
 
   const monthlyTrips = (analytics.monthlyTrips ?? []).map((m) => ({
     label: `${MONTHS[(m.month ?? 1) - 1]} '${String(m.year).slice(2)}`,
@@ -165,6 +180,51 @@ export default function DashboardPage() {
                     <Tooltip />
                     <Bar dataKey="value" name="Records" fill="#10b981" radius={[0, 4, 4, 0]} />
                   </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </Panel>
+        </div>
+      </div>
+
+      {/* Expenses */}
+      <div>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-slate-900">Expenses</h2>
+          <Link to="/expenses" className="text-sm font-medium text-slate-600 hover:text-slate-900">View all →</Link>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+          <StatCard label="Total expenses" value={formatCurrency(expenseSummary.totalExpenses ?? expenseSummary.total)} to="/expenses" />
+          <StatCard label="Expense count" value={expenseSummary.expenseCount ?? expenseSummary.count ?? "—"} to="/expenses" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <Panel title="Expenses (monthly)">
+            <div className="h-64">
+              {monthlyExpenses.length === 0 ? <EmptyState label="No expense data yet" /> : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={monthlyExpenses}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                    <XAxis dataKey="label" tick={{ fontSize: 12 }} stroke="#94a3b8" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="#94a3b8" />
+                    <Tooltip formatter={(v) => formatCurrency(v)} />
+                    <Bar dataKey="amount" name="Expenses" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </Panel>
+
+          <Panel title="Expenses by category">
+            <div className="h-64">
+              {expenseCategories.length === 0 ? <EmptyState label="No expense data yet" /> : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={expenseCategories} dataKey="value" nameKey="name" innerRadius={50} outerRadius={80} paddingAngle={2}>
+                      {expenseCategories.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                    </Pie>
+                    <Tooltip formatter={(v) => formatCurrency(v)} />
+                    <Legend />
+                  </PieChart>
                 </ResponsiveContainer>
               )}
             </div>

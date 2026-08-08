@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import db from '../models/index.js';
 import ApiError from '../utils/ApiError.js';
 
-import EXPENSE_SORT_FIELDS from '../utils/constants.js';
+import { EXPENSE_SORT_FIELDS } from '../utils/constants.js';
 
 const {
    sequelize,
@@ -167,7 +167,7 @@ class ExpenseService {
          startDate,
          endDate,
          sortBy = 'createdAt',
-         sortOrder = 'DESC',
+         order = 'DESC',
       } = query;
 
       const where = {
@@ -312,12 +312,6 @@ class ExpenseService {
          throw error;
       }
    }
-
-   /*
-|--------------------------------------------------------------------------
-| DELETE EXPENSE
-|--------------------------------------------------------------------------
-*/
 
    async deleteExpense(id) {
 
