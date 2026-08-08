@@ -267,7 +267,70 @@ class ExpenseService {
    }
 
    async updateExpense(id, data) {
-      
+      const transaction = await sequelize.transaction();
+
+      try {
+         const expense = await this.findExpense(id, transaction);
+
+         if(data.expenseNumber && data.expenseNumber !== expense.expenseNumber) {
+            await this.checkExpenseNumber(data.expenseNumber, expense.id);
+         }
+         
+         let vehicleId = expense.vehicleId;
+         if(data.vehicleId) {
+            const vehicle = await this.validateVehicle(data.vehicleId, transaction);
+            vehicleId = vehicle.id;
+         }
+
+         let tripId = null;
+
+         if(data.tripId) {
+            const trip = await this.validateTrip(data.tripId, transaction);
+            tripId = trip.id;
+         }
+
+         if(data.expenseDate && new Date(data.expenseDate) > new Date()) {
+            throw new ApiError(400, "Expense date cannot be in the future");
+         }
+
+         await expense.update({
+            expenseNumber: data.expenseNumber ?? expense.expenseNumber,
+            vehicleId, 
+            tripId,
+            expenseType: data.expenseType ?? expense.expenseType,
+            amount: data.amount ?? expense.amount,
+            paymentMethod: data.paymentMethod ?? expense.paymentMethod,
+            expenseDate: data.expenseDate ?? expense.expenseDate,
+            description: data.description ?? expense.description,
+         }, { transaction });
+
+         await transaction.commit();
+         return await this.getExpenseById(expense.id);
+      }
+      catch (error) {
+         await transaction.rollback();
+         throw error;
+      }
+   }
+
+   /*
+|--------------------------------------------------------------------------
+| DELETE EXPENSE
+|--------------------------------------------------------------------------
+*/
+
+   async deleteExpense(id) {
+
+      const expense = await this.findExpense(id);
+
+      await expense.destroy();
+
+      return {
+
+         message: "Expense deleted successfully."
+
+      };
+
    }
 }
 
