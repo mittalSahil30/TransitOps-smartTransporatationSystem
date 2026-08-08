@@ -56,4 +56,58 @@ router.get(
    dashboardController.getRecent
 
 );
+
+
+/*
+|--------------------------------------------------------------------------
+| EXPENSE SUMMARY
+|--------------------------------------------------------------------------
+*/
+
+router.get(
+   "/expense-summary",
+   authenticate,
+   authorize(
+      "Admin",
+      "Fleet Manager",
+      "Dispatcher"
+   ),
+   dashboardController.getExpenseSummary
+);
+
+/*
+|--------------------------------------------------------------------------
+| MONTHLY EXPENSES
+|--------------------------------------------------------------------------
+*/
+
+router.get(
+   "/expense-monthly",
+   authenticate,
+   authorize(
+      "Admin",
+      "Fleet Manager",
+      "Dispatcher"
+   ),
+   dashboardController.getMonthlyExpenses
+);
+
+/*
+|--------------------------------------------------------------------------
+| EXPENSES BY CATEGORY
+|--------------------------------------------------------------------------
+*/
+
+router.get(
+   "/expense-categories",
+   authenticate,
+   authorize(
+      "Admin",
+      "Fleet Manager",
+      "Dispatcher"
+   ),
+   dashboardController.getExpensesByCategory
+);
+
+
 export default router;

@@ -5,6 +5,7 @@ import Driver from "../models/Driver.js";
 import Trip from "../models/Trip.js";
 import Fuel from "../models/Fuel.js";
 import Maintenance from "../models/Maintaince.js";
+import Expense from "../models/Expense.js";
 
 import {
    VEHICLE_STATUS,
@@ -31,7 +32,9 @@ class DashboardService {
          totalFuelCost,
 
          pendingMaintenance,
-         inProgressMaintenance
+         inProgressMaintenance,
+
+
 
       ] = await Promise.all([
 
@@ -661,6 +664,278 @@ class DashboardService {
       };
    }
 
+
+   async getExpenseSummary(query = {}) {
+
+      const {
+         startDate,
+         endDate
+      } = query;
+
+      const where = {
+
+         deletedAt: null
+
+      };
+
+      if (startDate || endDate) {
+
+         where.expenseDate = {};
+
+         if (startDate) {
+
+            where.expenseDate[Op.gte] = startDate;
+
+         }
+
+         if (endDate) {
+
+            where.expenseDate[Op.lte] = endDate;
+
+         }
+
+      }
+
+      const totalExpenses = await Expense.sum(
+         "amount",
+         {
+            where
+         }
+      );
+
+      const expenseCount = await Expense.count({
+
+         where
+
+      });
+
+      return {
+
+         totalExpenses:
+            Number(totalExpenses || 0),
+
+         expenseCount
+
+      };
+
+   }
+
+   async getMonthlyExpenses(query = {}) {
+
+      const {
+         startDate,
+         endDate
+      } = query;
+
+      const where = {
+
+         deletedAt: null
+
+      };
+
+      if (startDate || endDate) {
+
+         where.expenseDate = {};
+
+         if (startDate) {
+
+            where.expenseDate[Op.gte] =
+               startDate;
+
+         }
+
+         if (endDate) {
+
+            where.expenseDate[Op.lte] =
+               endDate;
+
+         }
+
+      }
+
+      const monthlyExpenses =
+         await Expense.findAll({
+
+            attributes: [
+
+               [
+                  fn(
+                     "YEAR",
+                     col("expenseDate")
+                  ),
+                  "year"
+               ],
+
+               [
+                  fn(
+                     "MONTH",
+                     col("expenseDate")
+                  ),
+                  "month"
+               ],
+
+               [
+                  fn(
+                     "SUM",
+                     col("amount")
+                  ),
+                  "amount"
+               ]
+
+            ],
+
+            where,
+
+            group: [
+
+               literal(
+                  "YEAR(expense_date)"
+               ),
+
+               literal(
+                  "MONTH(expense_date)"
+               )
+
+            ],
+
+            order: [
+
+               [
+                  literal(
+                     "YEAR(expense_date)"
+                  ),
+                  "ASC"
+               ],
+
+               [
+                  literal(
+                     "MONTH(expense_date)"
+                  ),
+                  "ASC"
+               ]
+
+            ],
+
+            raw: true
+
+         });
+
+      return monthlyExpenses.map(
+         expense => ({
+
+            year:
+               Number(expense.year),
+
+            month:
+               Number(expense.month),
+
+            amount:
+               Number(expense.amount || 0)
+
+         })
+      );
+
+   }
+
+   async getExpensesByCategory(query = {}) {
+
+      const {
+         startDate,
+         endDate
+      } = query;
+
+      const where = {
+
+         deletedAt: null
+
+      };
+
+      if (startDate || endDate) {
+
+         where.expenseDate = {};
+
+         if (startDate) {
+
+            where.expenseDate[Op.gte] =
+               startDate;
+
+         }
+
+         if (endDate) {
+
+            where.expenseDate[Op.lte] =
+               endDate;
+
+         }
+
+      }
+
+      const categoryExpenses =
+         await Expense.findAll({
+
+            attributes: [
+
+               "expenseType",
+
+               [
+                  fn(
+                     "SUM",
+                     col("amount")
+                  ),
+                  "amount"
+               ],
+
+               [
+                  fn(
+                     "COUNT",
+                     col("id")
+                  ),
+                  "count"
+               ]
+
+            ],
+
+            where,
+
+            group: [
+
+               "expenseType"
+
+            ],
+
+            order: [
+
+               [
+                  literal("amount"),
+                  "DESC"
+               ]
+
+            ],
+
+            raw: true
+
+         });
+
+      return categoryExpenses.map(
+         expense => ({
+
+            expenseType:
+               expense.expenseType,
+
+            amount:
+               Number(
+                  expense.amount || 0
+               ),
+
+            count:
+               Number(
+                  expense.count || 0
+               )
+
+         })
+      );
+
+   }
 
 }
 

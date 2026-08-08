@@ -55,6 +55,51 @@ class DashboardController {
 
    });
 
+   getExpenseSummary = asyncHandler(async (req, res) => {
+
+      const summary =
+         await dashboardService.getExpenseSummary(req.query);
+
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Expense summary fetched successfully.",
+            summary
+         )
+      );
+
+   });
+
+   getMonthlyExpenses = asyncHandler(async (req, res) => {
+
+      const monthlyExpenses =
+         await dashboardService.getMonthlyExpenses(req.query);
+
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Monthly expenses fetched successfully.",
+            monthlyExpenses
+         )
+      );
+
+   });
+
+   getExpensesByCategory = asyncHandler(async (req, res) => {
+
+      const expensesByCategory =
+         await dashboardService.getExpensesByCategory(req.query);
+
+      return res.status(200).json(
+         new ApiResponse(
+            200,
+            "Expenses by category fetched successfully.",
+            expensesByCategory
+         )
+      );
+
+   });
+
 }
 
 export default new DashboardController();

@@ -7,6 +7,8 @@ import maintenanceRoutes from "./maintenance.routes.js"
 import fuelRoutes from "./fuel.routes.js";
 import dashboardRoutes from "./dashboard.routes.js";
 
+import expenseRoutes from "./expense.routes.js";
+
 const router = express.Router();
 
 /*
@@ -57,4 +59,8 @@ router.use("/maintenance", maintenanceRoutes);
 router.use("/fuel", fuelRoutes);
 
 router.use("/dashboard", dashboardRoutes);
+
+router.use("/expenses", expenseRoutes);
+
+
 export default router;
